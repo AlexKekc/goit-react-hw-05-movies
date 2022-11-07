@@ -11,7 +11,7 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
-  const searchQuery = searchParams.get('query') ?? '';
+  // const searchQuery = searchParams.get('query') ?? '';
 
   useEffect(() => {
     if (query === '') {
