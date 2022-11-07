@@ -8,29 +8,22 @@ import {
   MoviesItem,
   MovieLink,
 } from './Home.styled';
-// import { Loader } from 'components/Loader';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const location = useLocation();
-  //   const [loading, setLoading] = useState(false);
-  //   const [error, setError] = useState(null);
 
   useEffect(() => {
     const controller = new AbortController();
     async function fetchData() {
       try {
-        // setLoading(true);
         const response = await API.getTrendingMovies(controller);
-
-        // setLoading(false);
         setMovies(response.results);
       } catch (error) {
-        // setError(error);
-      } finally {
-        // setLoading(false);
+        console.error(error);
       }
     }
+
     fetchData();
 
     return () => {
@@ -40,10 +33,6 @@ const Home = () => {
 
   return (
     <Container>
-      {/* {error && <p>Whoops, something went wrong: {error.message}</p>} */}
-      {/* {loading && <Loader />}
-      {loading && <Loader />}
-      {loading && <Loader />} */}
       <Header>Trending today</Header>
       {movies.length > 0 && (
         <MoviesList>

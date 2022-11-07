@@ -17,12 +17,13 @@ export const getTrendingMovies = async controller => {
 // Пошук фільму за ключовим словом на сторінці фільмів:
 export const searchMovies = async (query, controller) => {
   const response = await axios.get(
-    `https://api.themoviedb.org/3/search/${query}}?`,
+    `https://api.themoviedb.org/3/search/movie?`,
     {
       signal: controller.signal,
       params: {
         api_key: 'c12fc6e7e876598f311d1d7cfc6c24fd',
         language: 'en-US',
+        query: `${query}`,
         page: 1,
         include_adult: false,
       },
