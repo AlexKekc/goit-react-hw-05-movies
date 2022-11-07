@@ -38,11 +38,10 @@ const Movies = () => {
   }, [query]);
 
   const handleFormSubmit = ({ query }) => {
-    setSearchParams(query !== '' ? { query: query } : {});
+    setSearchParams(query !== '' ? { query: query } : { query: paramsFilter });
     setQuery(query);
   };
 
-  console.log(location);
   return (
     <Container>
       <SearchBar onSubmit={handleFormSubmit} />

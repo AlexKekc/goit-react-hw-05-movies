@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ImArrowLeft } from 'react-icons/im';
-import {
-  useParams,
-  useLocation,
-  useSearchParams,
-  Outlet,
-} from 'react-router-dom';
+import { useParams, useLocation, Outlet } from 'react-router-dom';
 import {
   Container,
   MovieWrapper,
@@ -26,7 +21,6 @@ import * as API from 'services/movies-api';
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  // const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
 
   useEffect(() => {
@@ -53,7 +47,6 @@ const MovieDetails = () => {
   const { poster_path, title, popularity, overview, genres } = movie;
   const backLinkHref = location.state?.from ?? '/movies';
 
-  console.log(backLinkHref);
   return (
     <Container>
       <BackButton to={backLinkHref}>
