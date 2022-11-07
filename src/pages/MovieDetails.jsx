@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { ImArrowLeft } from 'react-icons/im';
 import { useParams, useLocation, Outlet } from 'react-router-dom';
 import {
@@ -85,7 +85,9 @@ const MovieDetails = () => {
           <AdditionalInfoLink to="reviews">Reviews</AdditionalInfoLink>
         </AdditionalInfoItem>
       </AdditionalInfoList>
-      <Outlet />
+      <Suspense fallback={null}>
+        <Outlet />
+      </Suspense>
     </Container>
   );
 };

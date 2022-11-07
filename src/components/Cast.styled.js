@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-  padding: ${p => p.theme.space[4]}px;
+  padding: ${p => p.theme.space[3]}px;
 `;
 
 export const ActorsList = styled.ul`
@@ -10,7 +10,6 @@ export const ActorsList = styled.ul`
 
 export const ActorsItem = styled.li`
   margin-bottom: ${p => p.theme.space[4]}px;
-  list-style: none;
 `;
 
 export const ActorImage = styled.img`
@@ -22,5 +21,9 @@ export const ActorImage = styled.img`
 `;
 
 export const ActorData = styled.p`
+  font-size: ${p => p.theme.fontSizes.xs};
+`;
+
+export const ActorError = styled.p`
   font-size: ${p => p.theme.fontSizes.xs};
 `;

@@ -6,6 +6,7 @@ import {
   ActorsItem,
   ActorImage,
   ActorData,
+  ActorError,
 } from './Cast.styled';
 import { Loader } from 'components/Loader';
 import * as API from 'services/movies-api';
@@ -39,24 +40,26 @@ const Cast = () => {
     <Container>
       {loading && <Loader />}
       <ActorsList>
-        {actors.map(({ id, profile_path, name, character }) => (
-          <ActorsItem key={id}>
-            <ActorImage
-              src={
-                profile_path !== null
-                  ? `https://image.tmdb.org/t/p/w500/${profile_path}`
-                  : 'https://i.pinimg.com/originals/74/3d/b2/743db230d891b47c1d8c66b161111b91.jpg'
-              }
-              alt={name}
-            />
-            <ActorData>
-              <b>Name:</b> {name}
-            </ActorData>
-            <ActorData>
-              <b>Character:</b> {character}
-            </ActorData>
-          </ActorsItem>
-        ))}
+        {actors.length > 0
+          ? actors.map(({ id, profile_path, name, character }) => (
+              <ActorsItem key={id}>
+                <ActorImage
+                  src={
+                    profile_path !== null
+                      ? `https://image.tmdb.org/t/p/w500/${profile_path}`
+                      : 'https://i.pinimg.com/originals/74/3d/b2/743db230d891b47c1d8c66b161111b91.jpg'
+                  }
+                  alt={name}
+                />
+                <ActorData>
+                  <b>Name:</b> {name}
+                </ActorData>
+                <ActorData>
+                  <b>Character:</b> {character}
+                </ActorData>
+              </ActorsItem>
+            ))
+          : !loading && <ActorError>Oops, actors not found</ActorError>}
       </ActorsList>
     </Container>
   );

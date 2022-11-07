@@ -11,7 +11,7 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
-  const paramsFilter = searchParams.get('query') ?? '';
+  const searchQuery = searchParams.get('query') ?? '';
 
   useEffect(() => {
     if (query === '') {
@@ -38,7 +38,7 @@ const Movies = () => {
   }, [query]);
 
   const handleFormSubmit = ({ query }) => {
-    setSearchParams(query !== '' ? { query: query } : { query: paramsFilter });
+    setSearchParams(query !== '' ? { query: query } : {});
     setQuery(query);
   };
 

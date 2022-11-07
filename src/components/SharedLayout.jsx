@@ -3,7 +3,7 @@ import { Container } from './SharedLayout.styled';
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
 
-const Layout = () => {
+const SharedLayout = () => {
   return (
     <Container>
       <AppBar />
@@ -14,4 +14,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default SharedLayout;
