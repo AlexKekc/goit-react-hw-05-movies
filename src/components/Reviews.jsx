@@ -15,6 +15,7 @@ const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -26,7 +27,7 @@ const Reviews = () => {
         setReviews(reviews);
         setLoading(false);
       } catch (error) {
-        console.error(error);
+        setError(error);
       }
     }
     fetchData();
@@ -38,7 +39,9 @@ const Reviews = () => {
 
   return (
     <Container>
-      {loading && <Loader />}
+      {error && error.message !== 'canceled' && (
+        <p>Whoops, something went wrong: {error.message}</p>
+      )}
       <ReviewsList>
         {reviews.length > 0
           ? reviews.map(({ id, author, content }) => (
@@ -49,6 +52,7 @@ const Reviews = () => {
             ))
           : !loading && <ReviewError>Oops, reviews not found</ReviewError>}
       </ReviewsList>
+      {loading && <Loader />}
     </Container>
   );
 };

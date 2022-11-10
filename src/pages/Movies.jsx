@@ -6,15 +6,15 @@ import { Loader } from 'components/Loader';
 import * as API from 'services/movies-api';
 
 const Movies = () => {
-  const [query, setQuery] = useState('');
   const [movies, setMovies] = useState('');
+  const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
-  // const searchQuery = searchParams.get('query') ?? '';
+  const searchQuery = searchParams.get('query') ?? '';
 
   useEffect(() => {
-    if (query === '') {
+    if (searchQuery === '') {
       return;
     }
 
@@ -22,12 +22,12 @@ const Movies = () => {
     async function fetchData() {
       try {
         setLoading(true);
-        const response = await API.searchMovies(query, controller);
+        const response = await API.searchMovies(searchQuery, controller);
         const movies = response.results;
         setMovies(movies);
         setLoading(false);
       } catch (error) {
-        console.error(error);
+        setError(error);
       }
     }
     fetchData();
@@ -35,17 +35,19 @@ const Movies = () => {
     return () => {
       controller.abort();
     };
-  }, [query]);
+  }, [searchQuery]);
 
   const handleFormSubmit = ({ query }) => {
     setSearchParams(query !== '' ? { query: query } : {});
-    setQuery(query);
   };
 
   return (
     <Container>
       <SearchBar onSubmit={handleFormSubmit} />
       {loading && <Loader />}
+      {error && error.message !== 'canceled' && (
+        <p>Whoops, something went wrong: {error.message !== 'canceled'}</p>
+      )}
       <MoviesList>
         {!loading &&
           movies.length > 0 &&

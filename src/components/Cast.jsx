@@ -15,6 +15,7 @@ const Cast = () => {
   const { movieId } = useParams();
   const [actors, setActors] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -26,7 +27,7 @@ const Cast = () => {
         setActors(actors);
         setLoading(false);
       } catch (error) {
-        console.error(error);
+        setError(error);
       }
     }
     fetchData();
@@ -38,7 +39,9 @@ const Cast = () => {
 
   return (
     <Container>
-      {loading && <Loader />}
+      {error && error.message !== 'canceled' && (
+        <p>Whoops, something went wrong: {error.message}</p>
+      )}
       <ActorsList>
         {actors.length > 0
           ? actors.map(({ id, profile_path, name, character }) => (
@@ -60,6 +63,7 @@ const Cast = () => {
               </ActorsItem>
             ))
           : !loading && <ActorError>Oops, actors not found</ActorError>}
+        {loading && <Loader />}
       </ActorsList>
     </Container>
   );

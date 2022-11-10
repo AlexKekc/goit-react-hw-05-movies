@@ -21,6 +21,7 @@ import * as API from 'services/movies-api';
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const [error, setError] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const MovieDetails = () => {
         const response = await API.getMovieDetails(Number(movieId), controller);
         setMovie(response);
       } catch (error) {
-        console.error(error);
+        setError(error);
       }
     }
     fetchData();
@@ -53,6 +54,9 @@ const MovieDetails = () => {
         <ImArrowLeft />
         Go back
       </BackButton>
+      {error && error.message !== 'canceled' && (
+        <p>Whoops, something went wrong: {error.message}</p>
+      )}
       <MovieWrapper>
         <MoviePoster
           src={

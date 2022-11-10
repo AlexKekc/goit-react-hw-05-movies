@@ -11,6 +11,7 @@ import {
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const Home = () => {
         const response = await API.getTrendingMovies(controller);
         setMovies(response.results);
       } catch (error) {
-        console.error(error);
+        setError(error);
       }
     }
 
@@ -34,6 +35,9 @@ const Home = () => {
   return (
     <Container>
       <Header>Trending today</Header>
+      {error && error.message !== 'canceled' && (
+        <p>Whoops, something went wrong: {error.message}</p>
+      )}
       {movies.length > 0 && (
         <MoviesList>
           {movies.length > 0 &&
