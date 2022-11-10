@@ -18,6 +18,11 @@ import {
 } from './MovieDetails.styled';
 import * as API from 'services/movies-api';
 
+const navItems = [
+  { href: 'cast', text: 'Cast' },
+  { href: 'reviews', text: 'Reviews' },
+];
+
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
@@ -82,12 +87,13 @@ const MovieDetails = () => {
       </MovieWrapper>
       <MovieSubtitle>Additional information</MovieSubtitle>
       <AdditionalInfoList>
-        <AdditionalInfoItem>
-          <AdditionalInfoLink to="cast">Cast</AdditionalInfoLink>
-        </AdditionalInfoItem>
-        <AdditionalInfoItem>
-          <AdditionalInfoLink to="reviews">Reviews</AdditionalInfoLink>
-        </AdditionalInfoItem>
+        {navItems.map(({ href, text }) => (
+          <AdditionalInfoItem key={href}>
+            <AdditionalInfoLink to={href} state={{ from: backLinkHref }}>
+              {text}
+            </AdditionalInfoLink>
+          </AdditionalInfoItem>
+        ))}
       </AdditionalInfoList>
       <Suspense fallback={null}>
         <Outlet />
